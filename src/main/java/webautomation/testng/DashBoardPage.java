@@ -16,6 +16,9 @@ public class DashBoardPage {
 	WebElement itembag;
 	@FindBy(xpath="//*[@id='item_4_title_link']")
 	WebElement chekinItemName;
+	@FindBy(xpath="//*[@id='item_4_title_link']//following::button[@id='add-to-cart-sauce-labs-backpack']/preceding-sibling::div")
+	WebElement itemAmount;
+	
 	
 	
 	

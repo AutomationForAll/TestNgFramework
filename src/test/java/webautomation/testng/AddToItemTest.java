@@ -14,6 +14,7 @@ public class AddToItemTest {
 	DashBoardPage dp;
 	CheckOutPage checkoutpage;
 	CheckOutOverviewPage checkOutOverviewPage;
+	ThankYouPage thankYouPage;
 	CommonPage cp= new CommonPage();
 	
 	
@@ -25,16 +26,19 @@ public class AddToItemTest {
 	}
 	
 	@Test
-	public void addToCartItems() throws IOException {
+	public void addToCartSingleItem() throws IOException {
 		lp= new LoginPage(driver);
 		dp= new DashBoardPage(driver);
 		checkoutpage= new CheckOutPage(driver);
 		checkOutOverviewPage= new CheckOutOverviewPage(driver);
+		thankYouPage= new ThankYouPage(driver);
 		lp.userName.sendKeys(cp.dataReaderFromPropertyFile("standard_userName"));
 		lp.password.sendKeys(cp.dataReaderFromPropertyFile("standard_user"));
 		lp.loginBtnClick();
 		Assert.assertEquals(dp.navigationBar.isEnabled(), true);
 		Assert.assertEquals(dp.shoppingCart.isDisplayed(), true);
+		String itemName=dp.chekinItemName.getText();
+		String itemAmount=dp.itemAmount.getText();
 		dp.itembag.click();
 		dp.shoppingCart.click();
 		checkoutpage.checkout.click();
@@ -43,7 +47,13 @@ public class AddToItemTest {
 		checkoutpage.lastname.sendKeys("hardy");
 		checkoutpage.postalcode.sendKeys("21345");
 		checkoutpage.continuee.click();
+		Assert.assertEquals(checkOutOverviewPage.overviewHeader.getText(),"Checkout: Overview");
+		Assert.assertEquals(itemName,checkOutOverviewPage.checkedoutItem.getText());
+		Assert.assertEquals(itemAmount,checkOutOverviewPage.checkedoutItemAmount.getText());
 		checkOutOverviewPage.finish.click();
+		Assert.assertEquals(thankYouPage.headerpage.getText(),"Checkout: Complete!");
+		Assert.assertEquals(thankYouPage.orderMsg.getText(),"Thank you for your order!");
+		thankYouPage.backtoproducts.click();
 	}
 	
 	@AfterTest
