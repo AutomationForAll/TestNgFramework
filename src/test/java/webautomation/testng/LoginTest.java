@@ -9,11 +9,13 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import utility.Utility;
+
 
 public class LoginTest {
 	WebDriver driver;
 	LoginPage lp;
-	CommonPage cp= new CommonPage();
+	Utility cp= new Utility();
 
 	@BeforeTest
 	public void setUp() {

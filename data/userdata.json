@@ -1,0 +1,19 @@
+{
+	"userDetails": [
+		{
+			"firstName": "Tom",
+			"lastName": "hardy",
+			"zip": "11111"
+		},
+		{
+			"firstName": "spider",
+			"lastName": "Man",
+			"zip": "12345"
+		},
+		{
+			"firstName": "Captain",
+			"lastName": "Amarica",
+			"zip": "123451"
+		}
+	]
+}
