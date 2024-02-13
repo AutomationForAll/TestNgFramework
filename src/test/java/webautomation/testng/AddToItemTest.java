@@ -35,7 +35,7 @@ public class AddToItemTest {
 
 	@Test(dataProvider = "datafromJSON")
 	public void addToCartSingleItem(String userdata) throws IOException {
-		String[] user=userdata.split(",");
+		String[] user = userdata.split(",");
 		lp.userName.sendKeys(cp.dataReaderFromPropertyFile("standard_userName"));
 		lp.password.sendKeys(cp.dataReaderFromPropertyFile("standard_user"));
 		lp.loginBtnClick();
@@ -61,38 +61,42 @@ public class AddToItemTest {
 		dp.navigationBar.click();
 		dp.logout.click();
 	}
+
 	@DataProvider(name = "datafromJSON")
 	public String[] dataProviderJSON() throws IOException, ParseException {
-		return cp.jsonReader();		
+		return cp.jsonReader();
 	}
 
-	/*
-	 * @Test public void addToCartMultipleItems() throws IOException { lp = new
-	 * LoginPage(driver); dp = new DashBoardPage(driver); checkoutpage = new
-	 * CheckOutPage(driver); checkOutOverviewPage = new
-	 * CheckOutOverviewPage(driver); thankYouPage = new ThankYouPage(driver);
-	 * lp.userName.sendKeys(cp.dataReaderFromPropertyFile("standard_userName"));
-	 * lp.password.sendKeys(cp.dataReaderFromPropertyFile("standard_user"));
-	 * lp.loginBtnClick(); Assert.assertEquals(dp.navigationBar.isEnabled(), true);
-	 * Assert.assertEquals(dp.shoppingCart.isDisplayed(), true); String itemName =
-	 * dp.chekinItemName.getText(); String itemAmount = dp.itemAmount.getText();
-	 * dp.itembag.click(); dp.shoppingCart.click(); checkoutpage.checkout.click();
-	 * Assert.assertEquals(checkoutpage.headerpage.getText(),
-	 * "Checkout: Your Information"); checkoutpage.firstname.sendKeys("Tom");
-	 * checkoutpage.lastname.sendKeys("hardy");
-	 * checkoutpage.postalcode.sendKeys("21345"); checkoutpage.continuee.click();
-	 * Assert.assertEquals(checkOutOverviewPage.overviewHeader.getText(),
-	 * "Checkout: Overview"); Assert.assertEquals(itemName,
-	 * checkOutOverviewPage.checkedoutItem.getText());
-	 * Assert.assertEquals(itemAmount,
-	 * checkOutOverviewPage.checkedoutItemAmount.getText());
-	 * checkOutOverviewPage.finish.click();
-	 * Assert.assertEquals(thankYouPage.headerpage.getText(),
-	 * "Checkout: Complete!"); Assert.assertEquals(thankYouPage.orderMsg.getText(),
-	 * "Thank you for your order!"); thankYouPage.backtoproducts.click();
-	 
+	@Test()
+	public void addToCartMultipleItems() throws IOException {
+		
+		lp.userName.sendKeys(cp.dataReaderFromPropertyFile("standard_userName"));
+		lp.password.sendKeys(cp.dataReaderFromPropertyFile("standard_user"));
+		lp.loginBtnClick();
+		Assert.assertEquals(dp.navigationBar.isEnabled(), true);
+		Assert.assertEquals(dp.shoppingCart.isDisplayed(), true);
+		String itemName = dp.chekinItemName.getText();
+		String itemAmount = dp.fetchItemAmount("Sauce Labs Backpack").getText();
+		dp.clickOnItem("Sauce Labs Backpack").click();
+		dp.clickOnItem("Sauce Labs Bike Light").click();
+		dp.shoppingCart.click();
+		checkoutpage.checkout.click();
+		Assert.assertEquals(checkoutpage.headerpage.getText(), "Checkout: Your Information");
+		checkoutpage.firstname.sendKeys("Neymar");
+		checkoutpage.lastname.sendKeys("Tripathi");
+		checkoutpage.postalcode.sendKeys("23097");
+		checkoutpage.continuee.click();
+		Assert.assertEquals(checkOutOverviewPage.overviewHeader.getText(), "Checkout: Overview");
+		Assert.assertEquals(itemName, checkOutOverviewPage.checkedoutItem.getText());
+		Assert.assertEquals(itemAmount, checkOutOverviewPage.checkedoutItemAmount.getText());
+		checkOutOverviewPage.finish.click();
+		Assert.assertEquals(thankYouPage.headerpage.getText(), "Checkout: Complete!");
+		Assert.assertEquals(thankYouPage.orderMsg.getText(), "Thank you for your order!");
+		thankYouPage.backtoproducts.click();
+		dp.navigationBar.click();
+		dp.logout.click();
 	}
-*/
+
 	@AfterTest
 	public void tearDown() {
 
